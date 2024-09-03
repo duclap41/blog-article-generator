@@ -74,10 +74,22 @@ WSGI_APPLICATION = 'ai_blog_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# connect to PostgresSQL database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ai_blog',
+        'USER': 'postgres',
+        'PASSWORD': '150803duclap',
+        'HOST': 'postgresdb.cfw6ksmq67nm.ap-southeast-2.rds.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
