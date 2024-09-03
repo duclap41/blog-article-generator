@@ -107,8 +107,43 @@
         Powered by <a href="https://github.com/playwithoctopus" target="_blank" class="hover:underline">Playwithoctopus</a>
     </footer>
 
+    
     <script>
-        
+        document.getElementById("generate-blog-button").addEventListener('click', async ()=>{
+            const ytbLink = document.getElementById("ytb-link").value;
+            const loadingCircle = document.getElementById("loading-circle")
+            const blockContent = document.getElementById("blog-content")
+            
+            if (ytbLink) {
+                document.getElementById("loading-circle").style.display = "block";
+                loadingCircle.classList.remove("hidden");
+                blockContent.innerHTML = ""; // Clear previous content
+                
+                const endpointURL = "/generator-blog";
+                
+                try {
+                    const respone = await fetch(endpointURL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/jon"
+                        },
+                        body: JSON.stringify({ link: ytbLink})
+                    });
+                    
+                    const data = await respone.json();
+                    blockContent.innerHTML = data.content;
+                    loadingCircle.classList.add("hidden");
+                    
+                } catch (error) {
+                    console.error("Error occurred:", error);
+                    alert("Something went wrong. Please try again later!");
+                    loadingCircle.classList.add("hidden");
+                }
+                document.getElementById("loading-circle").style.display = "none";
+            } else {
+                alert("Please enter a YouTube Link!");
+            }
+        });
     </script>
 
 </body>
