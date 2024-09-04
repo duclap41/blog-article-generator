@@ -15,12 +15,12 @@ import assemblyai as aai
 
 
 # Create your views here.
-@login_required(login_url="login")
+@login_required
 def index(request):
     return render(request, "index.html")
 
 
-# @login_required(login_url="login")
+@login_required
 @csrf_exempt  # this is avoiding required csrf_token
 def generate_blog(request):
     """Automated generate a blog article"""
@@ -119,8 +119,24 @@ def get_transcription(link):
 
 
 def generate_blog_from_transcription(transcription):
-    prompt = f"I haven't enough money to continue use openai API :((( \n {transcription}"
+    prompt = f"\n {transcription}"
     return prompt
+
+
+@login_required
+def blog_list(request):
+    blog_articles = BlogPost.objects.filter(user=request.user)
+    return render(request, "all-blogs.html", {"blog_articles": blog_articles})
+
+
+@login_required
+def blog_details(request, pk):
+    blog_article_details = BlogPost.objects.get(id=pk)
+    if request.user == blog_article_details.user:
+        return render(request, "blog-details.html", {"blog_article_details": blog_article_details})
+    else:
+        return redirect("/")
+
 
 def user_login(request):
     if request.method == "POST":
