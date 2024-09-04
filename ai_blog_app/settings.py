@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os.path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -135,4 +135,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUDIO_URL = 'audio/'
+AUDIO_ROOT = os.path.join(BASE_DIR, AUDIO_URL)
+
 LOGIN_URL = "login"
+
+OPENAI_API_KEY = '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'
+OPENAI_API_USER_KEY = 'sk-1GPhVe431q56NfaErp-QLkR5YPMEfvtwuMNIb1hWWfT3BlbkFJrNa_i7dG3YhZYGGXpuytdiBkrg_CTMVQvK8NLQa38A'

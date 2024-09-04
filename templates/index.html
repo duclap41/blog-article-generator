@@ -97,7 +97,7 @@
                 <h2 class="text-xl mb-4 font-semibold">Generated Blog Article</h2>
                 <div id="blog-content" class="mt-2 text-gray-700 space-y-4">
                     
-
+{#                        blog article content will display here#}
                 </div>
             </section>
         </div>
@@ -111,33 +111,33 @@
     <script>
         document.getElementById("generate-blog-button").addEventListener('click', async ()=>{
             const ytbLink = document.getElementById("ytb-link").value;
-            const loadingCircle = document.getElementById("loading-circle")
+            {#const loadingCircle = document.getElementById("loading-circle")#}
             const blockContent = document.getElementById("blog-content")
             
             if (ytbLink) {
                 document.getElementById("loading-circle").style.display = "block";
-                loadingCircle.classList.remove("hidden");
+                {#loadingCircle.classList.remove("hidden");#}
                 blockContent.innerHTML = ""; // Clear previous content
                 
-                const endpointURL = "/generator-blog";
+                const endpointURL = "/generate-blog";
                 
                 try {
-                    const respone = await fetch(endpointURL, {
+                    const response = await fetch(endpointURL, {
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/jon"
+                            "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ link: ytbLink})
+                        body: JSON.stringify({ link: ytbLink}) // convert to JSON sequence
                     });
                     
-                    const data = await respone.json();
+                    const data = await response.json();
                     blockContent.innerHTML = data.content;
-                    loadingCircle.classList.add("hidden");
+                    {#loadingCircle.classList.add("hidden"); // add a class to hide this element on UI#}
                     
                 } catch (error) {
                     console.error("Error occurred:", error);
                     alert("Something went wrong. Please try again later!");
-                    loadingCircle.classList.add("hidden");
+                    {#loadingCircle.classList.add("hidden");#}
                 }
                 document.getElementById("loading-circle").style.display = "none";
             } else {
