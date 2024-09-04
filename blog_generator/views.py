@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.conf import settings
+from .models import BlogPost
+
 import json
 import yt_dlp
 import os
@@ -43,6 +45,13 @@ def generate_blog(request):
             return JsonResponse({"error": "Failed to generate blog article."}, status=500)
 
         # save blog article to database
+        new_blog_article = BlogPost.objects.create(
+            user=request.user,
+            youtube_title=title,
+            youtube_url=ytb_link,
+            generated_content=blog_content,
+        )
+        new_blog_article.save()
 
         # return blog article as a response
         return JsonResponse({"content": blog_content})
